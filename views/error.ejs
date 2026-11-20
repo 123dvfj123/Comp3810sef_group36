@@ -1,0 +1,10 @@
+<%- include("partials/header", { title }) %>
+
+<section class="error-state">
+  <p class="error-code"><%= status || 500 %></p>
+  <h1><%= title %></h1>
+  <p class="lead"><%= message %></p>
+  <a class="button button-primary" href="<%= currentUser ? "/cars" : "/login" %>">Return to FleetDesk</a>
+</section>
+
+<%- include("partials/footer") %>

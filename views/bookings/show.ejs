@@ -1,0 +1,57 @@
+<%- include("../partials/header", { title }) %>
+
+<a class="back-link" href="/bookings">← Back to My bookings</a>
+
+<section class="booking-detail-header">
+  <div>
+    <p class="eyebrow">Booking ID: <%= booking.id %></p>
+    <h1><%= booking.carModel %></h1>
+    <p class="muted"><%= booking.plateNo %> · Created <%= dateTime(booking.createdAt) %></p>
+  </div>
+  <span class="status-chip <%= overdue ? "overdue" : booking.status %>"><%= overdue ? "Overdue" : booking.status %></span>
+</section>
+
+<section class="detail-layout booking-layout">
+  <div class="panel">
+    <h2>Rental details</h2>
+    <dl class="detail-list">
+      <div><dt>Pickup</dt><dd><%= dateTime(booking.pickupAt) %></dd></div>
+      <div><dt>Expected return</dt><dd><%= dateTime(booking.expectedReturnAt) %></dd></div>
+      <div><dt>Rental days</dt><dd><%= booking.rentalDays %></dd></div>
+      <div><dt>Daily rate</dt><dd>HKD <%= money(booking.dailyRate) %></dd></div>
+      <div><dt>Total amount</dt><dd><strong>HKD <%= money(booking.totalAmount) %></strong></dd></div>
+      <% if (booking.actualReturnAt) { %>
+        <div><dt>Actual return</dt><dd><%= dateTime(booking.actualReturnAt) %></dd></div>
+        <div><dt>Actual days</dt><dd><%= booking.actualDays %></dd></div>
+        <div><dt>Overdue days</dt><dd><%= booking.overdueDays %></dd></div>
+        <div><dt>Billable days</dt><dd><%= booking.billableDays %></dd></div>
+      <% } %>
+    </dl>
+  </div>
+
+  <aside class="panel action-panel">
+    <p class="eyebrow">Customer</p>
+    <h2><%= booking.customerName %></h2>
+    <p class="muted"><%= booking.customerPhone %></p>
+    <% if (booking.notes) { %>
+      <p class="notes-box"><%= booking.notes %></p>
+    <% } %>
+
+    <div class="action-stack">
+      <% if (booking.status === "active") { %>
+        <% if (!overdue) { %>
+          <a class="button button-secondary button-wide" href="/bookings/<%= booking.id %>/edit">Change rental days</a>
+        <% } %>
+        <form method="post" action="/bookings/<%= booking.id %>/return">
+          <button class="button button-primary button-wide" type="submit">Return now</button>
+        </form>
+      <% } else { %>
+        <form method="post" action="/bookings/<%= booking.id %>/delete" onsubmit="return confirm('Delete this completed booking?');">
+          <button class="button button-danger button-wide" type="submit">Delete completed booking</button>
+        </form>
+      <% } %>
+    </div>
+  </aside>
+</section>
+
+<%- include("../partials/footer") %>

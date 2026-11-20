@@ -1,0 +1,36 @@
+<%- include("../partials/header", { title }) %>
+
+<a class="back-link" href="/cars">← Back to cars</a>
+
+<section class="detail-layout">
+  <div class="detail-image-wrap">
+    <img
+      class="detail-image"
+      src="<%= car.imagePath %>"
+      alt="<%= car.brand %> <%= car.model %> - <%= car.plateNo %>"
+      onerror="this.onerror=null;this.src='/images/cars/placeholder.jpg';"
+    >
+    <span class="status-chip <%= car.availability.toLowerCase() %>"><%= car.availability %></span>
+  </div>
+
+  <div class="detail-copy">
+    <p class="eyebrow"><%= car.category %> · <%= car.plateNo %></p>
+    <h1><%= car.brand %> <%= car.model %></h1>
+    <p class="lead"><%= car.description %></p>
+
+    <dl class="spec-grid">
+      <div><dt>Daily rate</dt><dd>HKD <%= money(car.dailyRate) %></dd></div>
+      <div><dt>Transmission</dt><dd><%= car.transmission %></dd></div>
+      <div><dt>Seats</dt><dd><%= car.seats %></dd></div>
+      <div><dt>Availability</dt><dd><%= car.availability %></dd></div>
+    </dl>
+
+    <% if (car.availability === "Available") { %>
+      <a class="button button-primary button-wide" href="/bookings/new/<%= encodeURIComponent(car.plateNo) %>">Rent now</a>
+    <% } else { %>
+      <button class="button button-disabled button-wide" type="button" disabled>Currently rented</button>
+    <% } %>
+  </div>
+</section>
+
+<%- include("../partials/footer") %>

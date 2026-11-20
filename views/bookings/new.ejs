@@ -1,0 +1,45 @@
+<%- include("../partials/header", { title }) %>
+
+<a class="back-link" href="/cars/<%= encodeURIComponent(car.plateNo) %>">← Back to car</a>
+
+<section class="checkout-layout">
+  <div class="panel">
+    <p class="eyebrow">Confirm your rental</p>
+    <h1><%= car.brand %> <%= car.model %></h1>
+    <p class="muted"><%= car.plateNo %> · <%= car.category %> · <%= car.transmission %></p>
+
+    <% if (error) { %>
+      <div class="form-alert" role="alert"><%= error %></div>
+    <% } %>
+
+    <form method="post" action="/bookings/new/<%= encodeURIComponent(car.plateNo) %>" class="form-stack">
+      <label>
+        <span>Rental days</span>
+        <input type="number" name="rentalDays" min="1" max="30" step="1" value="<%= form.rentalDays %>" required>
+        <small>Choose between 1 and 30 days.</small>
+      </label>
+      <label>
+        <span>Notes <em>optional</em></span>
+        <textarea name="notes" rows="4" placeholder="Anything we should know?"><%= form.notes %></textarea>
+      </label>
+      <button class="button button-primary button-wide" type="submit">Create booking</button>
+    </form>
+  </div>
+
+  <aside class="order-summary">
+    <img
+      src="<%= car.imagePath %>"
+      alt="<%= car.brand %> <%= car.model %>"
+      onerror="this.onerror=null;this.src='/images/cars/placeholder.jpg';"
+    >
+    <h2>Rental summary</h2>
+    <dl>
+      <div><dt>Daily rate</dt><dd>HKD <%= money(car.dailyRate) %></dd></div>
+      <div><dt>Pickup</dt><dd>Starts immediately</dd></div>
+      <div><dt>Expected return</dt><dd>Pickup + selected days</dd></div>
+      <div><dt>Customer</dt><dd><%= currentUser.customerName %></dd></div>
+    </dl>
+  </aside>
+</section>
+
+<%- include("../partials/footer") %>

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%= title %> | FleetDesk</title>
+    <link rel="stylesheet" href="/css/main.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="shell header-inner">
+        <a class="brand" href="/cars" aria-label="FleetDesk home">
+          <span class="brand-mark">FD</span>
+          <span>
+            <strong>FleetDesk</strong>
+            <small>Rental studio</small>
+          </span>
+        </a>
+
+        <% if (currentUser) { %>
+          <nav class="main-nav" aria-label="Main navigation">
+            <a class="<%= currentPath.startsWith('/cars') ? 'active' : '' %>" href="/cars">Browse cars</a>
+            <a class="<%= currentPath.startsWith('/bookings') ? 'active' : '' %>" href="/bookings">My bookings</a>
+          </nav>
+          <div class="account-area">
+            <span class="account-name"><%= currentUser.customerName %></span>
+            <a class="button button-quiet" href="/logout">Logout</a>
+          </div>
+        <% } %>
+      </div>
+    </header>
+
+    <% if (flashNotice) { %>
+      <div class="shell flash flash-success" role="status"><%= flashNotice %></div>
+    <% } %>
+    <% if (flashError) { %>
+      <div class="shell flash flash-error" role="alert"><%= flashError %></div>
+    <% } %>
+
+    <main class="shell page-shell">

@@ -1,0 +1,86 @@
+<%- include("../partials/header", { title }) %>
+
+<section class="page-hero">
+  <div>
+    <p class="eyebrow">The collection</p>
+    <h1>Choose your next drive.</h1>
+    <p class="lead">Every vehicle is listed individually with live availability.</p>
+  </div>
+  <div class="hero-stat">
+    <strong><%= cars.length %></strong>
+    <span>cars shown</span>
+  </div>
+</section>
+
+<section class="panel filter-panel" aria-labelledby="filter-title">
+  <div>
+    <p class="eyebrow">Refine</p>
+    <h2 id="filter-title">Find the right fit</h2>
+  </div>
+  <form method="get" action="/cars" class="filter-form">
+    <label>
+      <span>Category</span>
+      <select name="category">
+        <option value="">All categories</option>
+        <% categories.forEach((category) => { %>
+          <option value="<%= category %>" <%= selectedCategory === category ? "selected" : "" %>><%= category %></option>
+        <% }); %>
+      </select>
+    </label>
+    <label>
+      <span>Availability</span>
+      <select name="availability">
+        <option value="">All availability</option>
+        <option value="Available" <%= selectedAvailability === "Available" ? "selected" : "" %>>Available</option>
+        <option value="Rented" <%= selectedAvailability === "Rented" ? "selected" : "" %>>Rented</option>
+      </select>
+    </label>
+    <button class="button button-primary" type="submit">Apply filters</button>
+    <a class="button button-quiet" href="/cars">Reset</a>
+  </form>
+</section>
+
+<% if (cars.length === 0) { %>
+  <section class="empty-state">
+    <h2>No cars match those filters.</h2>
+    <p>Reset the filters and browse the full collection.</p>
+    <a class="button button-primary" href="/cars">Show all cars</a>
+  </section>
+<% } else { %>
+  <section class="car-grid" aria-label="Available cars">
+    <% cars.forEach((car) => { %>
+      <article class="car-card">
+        <a class="car-image-link" href="/cars/<%= encodeURIComponent(car.plateNo) %>">
+          <img
+            class="car-image"
+            src="<%= car.imagePath %>"
+            alt="<%= car.brand %> <%= car.model %> - <%= car.plateNo %>"
+            onerror="this.onerror=null;this.src='/images/cars/placeholder.jpg';"
+          >
+          <span class="status-chip <%= car.availability.toLowerCase() %>"><%= car.availability %></span>
+        </a>
+        <div class="car-card-body">
+          <div class="car-title-row">
+            <div>
+              <p class="eyebrow"><%= car.category %></p>
+              <h2><%= car.brand %> <%= car.model %></h2>
+            </div>
+            <div class="price">
+              <strong>HKD <%= money(car.dailyRate) %></strong>
+              <span>per day</span>
+            </div>
+          </div>
+          <p class="muted"><%= car.description %></p>
+          <dl class="quick-specs">
+            <div><dt>Plate</dt><dd><%= car.plateNo %></dd></div>
+            <div><dt>Seats</dt><dd><%= car.seats %></dd></div>
+            <div><dt>Gearbox</dt><dd><%= car.transmission %></dd></div>
+          </dl>
+          <a class="button button-secondary button-wide" href="/cars/<%= encodeURIComponent(car.plateNo) %>">View details</a>
+        </div>
+      </article>
+    <% }); %>
+  </section>
+<% } %>
+
+<%- include("../partials/footer") %>

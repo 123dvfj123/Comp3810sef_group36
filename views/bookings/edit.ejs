@@ -1,0 +1,24 @@
+<%- include("../partials/header", { title }) %>
+
+<a class="back-link" href="/bookings/<%= booking.id %>">← Back to booking</a>
+
+<section class="panel narrow-panel">
+  <p class="eyebrow">Adjust rental</p>
+  <h1>Change rental days</h1>
+  <p class="muted">Booking ID: <%= booking.id %> · <%= booking.carModel %> · <%= booking.plateNo %></p>
+
+  <% if (error) { %>
+    <div class="form-alert" role="alert"><%= error %></div>
+  <% } %>
+
+  <form method="post" action="/bookings/<%= booking.id %>/update" class="form-stack">
+    <label>
+      <span>New rental days</span>
+      <input type="number" name="rentalDays" min="1" max="30" step="1" value="<%= form.rentalDays %>" required>
+      <small>The new expected return time must remain in the future.</small>
+    </label>
+    <button class="button button-primary button-wide" type="submit">Update booking</button>
+  </form>
+</section>
+
+<%- include("../partials/footer") %>
