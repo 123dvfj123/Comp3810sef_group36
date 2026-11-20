@@ -1,4 +1,3 @@
-const os = require("node:os");
 const path = require("node:path");
 const express = require("express");
 const session = require("cookie-session");
@@ -116,29 +115,12 @@ app.use((error, req, res, next) => {
   });
 });
 
-function getNetworkUrls(port) {
-  const urls = [];
-
-  for (const addresses of Object.values(os.networkInterfaces())) {
-    for (const address of addresses || []) {
-      if (address.family === "IPv4" && !address.internal) {
-        urls.push(`http://${address.address}:${port}`);
-      }
-    }
-  }
-
-  return urls;
-}
-
 async function startServer() {
   await connectDatabase();
 
   const server = app.listen(PORT, () => {
     console.log("FleetDesk started successfully.");
     console.log(`Local URL: http://localhost:${PORT}`);
-    for (const url of getNetworkUrls(PORT)) {
-      console.log(`Network URL: ${url}`);
-    }
   });
 
   server.on("error", (error) => {
