@@ -12,7 +12,7 @@ FleetDesk is a customer-facing car rental web application for COMP3810SEF Group 
 | Huang Wei Jia | 13686319 | MongoDB models, fixed accounts, Login/Logout, authentication middleware, seed data |
 | Tan Yuan Ting | 13374348 | EJS pages, forms, vehicle images, CSS, responsive layout |
 | Liu Jia Hao | 13662451 | Vehicle queries, Web CRUD, rental rules, amount calculation, Return now |
-| Hu Qing Kai | 13661454 | REST API, CURL commands, testing, QA, rehearsal timing |
+| Hu Qing Kai | 13661454 | REST API, CURL API testing, QA, rehearsal timing |
 
 ## Project Scope
 
@@ -57,7 +57,6 @@ Implemented:
 - Dynamic vehicle availability with category and status filters
 - Booking creation, rental-day updates, Return now, and completed-history deletion
 - Four REST booking operations with documented JSON error responses
-- Automated tests for business rules, schemas, seed data, login, route protection, and API error handling
 
 ## Setup
 
@@ -97,7 +96,6 @@ Do not commit a real MongoDB Atlas connection string when sharing a public copy 
 ```bash
 npm start   # start the web application
 node seed.js # delete old cars and insert the seven demo cars
-npm test    # run business-rule, schema, login, and route tests
 ```
 
 `seed.js` clears the current `cars` collection, saves the seven demo cars again, and does not create rental orders.
@@ -213,7 +211,6 @@ curl -i -X DELETE "$BASE_URL/api/bookings/$COMPLETED_ID"
 |-- public/css/             Application styling
 |-- public/images/cars/     Seven local vehicle images and fallback image
 |-- routes/                 Express route definitions
-|-- test/                   Automated Node.js tests
 |-- utils/                  HTTP error and async wrappers
 |-- views/                  EJS pages and partials
 |-- seed.js                 Vehicle seed entry point

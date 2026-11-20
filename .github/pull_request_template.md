@@ -12,7 +12,6 @@ Describe the feature, fix, or document change.
 
 ## Verification
 
-- [ ] `npm test`
 - [ ] `node --check` passes for changed JavaScript files
 - [ ] Relevant pages were tested in the browser
 - [ ] API changes were tested with CURL
