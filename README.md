@@ -209,7 +209,7 @@ curl -i -X DELETE "$BASE_URL/api/bookings/$COMPLETED_ID"
 |-- middleware/             requireAuth middleware
 |-- models/                 Car and RentalOrder schemas
 |-- public/css/             Application styling
-|-- public/images/cars/     Seven local vehicle images and fallback image
+|-- public/images/cars/     15 local image assets (7 active cars, 7 legacy assets, placeholder)
 |-- routes/                 Express route definitions
 |-- utils/                  HTTP error and async wrappers
 |-- views/                  EJS pages and partials

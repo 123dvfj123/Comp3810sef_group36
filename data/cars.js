@@ -26,14 +26,14 @@ const CARS = [
   {
     plateNo: "HK-SED-01",
     brand: "Xiaomi",
-    model: "SU7 Max",
+    model: "SU7 Ultra",
     category: "Sedan",
     transmission: "Automatic",
     seats: 5,
     dailyRate: 1800,
     description:
-      "Dual-motor electric sedan with 673 PS, all-wheel drive and up to 800 km CLTC range.",
-    imagePath: "/images/cars/xiaomi_su7_max.png",
+      "Tri-motor electric performance sedan with 1548 PS and all-wheel drive.",
+    imagePath: "/images/cars/xiaomi_su7_ultra.png",
   },
   {
     plateNo: "HK-SED-02",

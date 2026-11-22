@@ -5,7 +5,7 @@
 <section class="detail-layout">
   <div class="detail-image-wrap">
     <img
-      class="detail-image"
+      class="detail-image<%= car.model === 'G 63' ? ' detail-image--g63' : '' %><%= car.model === 'Cullinan' ? ' detail-image--cullinan' : '' %>"
       src="<%= car.imagePath %>"
       alt="<%= car.brand %> <%= car.model %> - <%= car.plateNo %>"
       onerror="this.onerror=null;this.src='/images/cars/placeholder.jpg';"
@@ -14,7 +14,7 @@
   </div>
 
   <div class="detail-copy">
-    <p class="eyebrow"><%= car.category %> · <%= car.plateNo %></p>
+    <p class="eyebrow"><%= car.category %></p>
     <h1><%= car.brand %> <%= car.model %></h1>
     <p class="lead"><%= car.description %></p>
 

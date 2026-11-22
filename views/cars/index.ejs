@@ -2,39 +2,30 @@
 
 <section class="page-hero">
   <div>
-    <p class="eyebrow">The collection</p>
-    <h1>Choose your next drive.</h1>
-    <p class="lead">Every vehicle is listed individually with live availability.</p>
+    <h1 class="collection-heading">DEFINE YOUR JOURNEY</h1>
   </div>
   <div class="hero-stat">
     <strong><%= cars.length %></strong>
-    <span>cars shown</span>
+    <span>CARS SHOWN</span>
   </div>
 </section>
 
 <section class="panel filter-panel" aria-labelledby="filter-title">
   <div>
-    <p class="eyebrow">Refine</p>
-    <h2 id="filter-title">Find the right fit</h2>
+    <h2 id="filter-title">Find you want</h2>
   </div>
   <form method="get" action="/cars" class="filter-form">
-    <label>
-      <span>Category</span>
-      <select name="category">
-        <option value="">All categories</option>
-        <% categories.forEach((category) => { %>
-          <option value="<%= category %>" <%= selectedCategory === category ? "selected" : "" %>><%= category %></option>
-        <% }); %>
-      </select>
-    </label>
-    <label>
-      <span>Availability</span>
-      <select name="availability">
-        <option value="">All availability</option>
-        <option value="Available" <%= selectedAvailability === "Available" ? "selected" : "" %>>Available</option>
-        <option value="Rented" <%= selectedAvailability === "Rented" ? "selected" : "" %>>Rented</option>
-      </select>
-    </label>
+    <select name="category" aria-label="Category">
+      <option value="">All categories</option>
+      <% categories.forEach((category) => { %>
+        <option value="<%= category %>" <%= selectedCategory === category ? "selected" : "" %>><%= category %></option>
+      <% }); %>
+    </select>
+    <select name="availability" aria-label="Availability">
+      <option value="">All availability</option>
+      <option value="Available" <%= selectedAvailability === "Available" ? "selected" : "" %>>Available</option>
+      <option value="Rented" <%= selectedAvailability === "Rented" ? "selected" : "" %>>Rented</option>
+    </select>
     <button class="button button-primary" type="submit">Apply filters</button>
     <a class="button button-quiet" href="/cars">Reset</a>
   </form>
@@ -52,7 +43,7 @@
       <article class="car-card">
         <a class="car-image-link" href="/cars/<%= encodeURIComponent(car.plateNo) %>">
           <img
-            class="car-image"
+            class="car-image<%= car.model === 'G 63' ? ' car-image--g63' : '' %><%= car.model === 'Cullinan' ? ' car-image--cullinan' : '' %>"
             src="<%= car.imagePath %>"
             alt="<%= car.brand %> <%= car.model %> - <%= car.plateNo %>"
             onerror="this.onerror=null;this.src='/images/cars/placeholder.jpg';"
@@ -71,11 +62,6 @@
             </div>
           </div>
           <p class="muted"><%= car.description %></p>
-          <dl class="quick-specs">
-            <div><dt>Plate</dt><dd><%= car.plateNo %></dd></div>
-            <div><dt>Seats</dt><dd><%= car.seats %></dd></div>
-            <div><dt>Gearbox</dt><dd><%= car.transmission %></dd></div>
-          </dl>
           <a class="button button-secondary button-wide" href="/cars/<%= encodeURIComponent(car.plateNo) %>">View details</a>
         </div>
       </article>
