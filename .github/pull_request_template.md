@@ -7,7 +7,7 @@ Describe the feature, fix, or document change.
 - [ ] Web page
 - [ ] REST API
 - [ ] MongoDB model or index
-- [ ] Seed data
+- [ ] External database integration
 - [ ] Documentation
 
 ## Verification

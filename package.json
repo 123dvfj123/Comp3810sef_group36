@@ -5,8 +5,7 @@
   "description": "FleetDesk customer car rental system for COMP3810SEF Group 36",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "seed": "node seed.js"
+    "start": "node server.js"
   },
   "engines": {
     "node": ">=20"

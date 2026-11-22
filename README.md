@@ -4,12 +4,14 @@
 
 FleetDesk is a customer-facing car rental web application for COMP3810SEF Group 36. It uses Express, EJS, MongoDB, Mongoose, and cookie-session. Customers can browse specific vehicles, create immediate rentals, update rental days, return a car, and delete completed booking history.
 
+Vehicle records are assumed to be provided by an externally managed MongoDB database. This repository contains no local vehicle data or seed module.
+
 ## Group Information
 
 | Member | Student ID | Main role |
 |---|---|---|
 | Yuan Chong Jun | 13705584 | Express entry point, MongoDB connection, Git integration, README, ZIP, presentation control |
-| Huang Wei Jia | 13686319 | MongoDB models, fixed accounts, Login/Logout, authentication middleware, seed data |
+| Huang Wei Jia | 13686319 | MongoDB models, fixed accounts, Login/Logout, authentication middleware, external database integration |
 | Tan Yuan Ting | 13374348 | EJS pages, forms, vehicle images, CSS, responsive layout |
 | Liu Jia Hao | 13662451 | Vehicle queries, Web CRUD, rental rules, amount calculation, Return now |
 | Hu Qing Kai | 13661454 | REST API, CURL API testing, QA, rehearsal timing |
@@ -18,6 +20,7 @@ FleetDesk is a customer-facing car rental web application for COMP3810SEF Group 
 
 - Customer login with two preset accounts
 - Individual vehicle cards with local images
+- Vehicle records read from a pre-populated external MongoDB database
 - Category and availability filters
 - Immediate rental start with a 1–30 day duration
 - Active and completed booking lifecycle
@@ -34,14 +37,14 @@ The project does not include registration, payments, deposits, licensing documen
 | `customer01` | `demo123` |
 | `customer02` | `demo123` |
 
-The fixed accounts are stored on the server in `config/users.js`. They are not stored in MongoDB and `seed.js` must not create account records.
+The fixed accounts are stored on the server in `config/users.js`. They remain part of the application and are not stored in MongoDB.
 
 ## Technology
 
 - Node.js 20 or later
 - Express
 - EJS
-- MongoDB Atlas
+- MongoDB (externally managed)
 - Mongoose
 - cookie-session
 
@@ -52,7 +55,7 @@ The customer-facing application workflow is implemented in this repository.
 Implemented:
 
 - Car and RentalOrder schemas with basic Mongoose validation
-- Seven seed records recreated with `deleteMany()` and `Model.save()`
+- Vehicle records read from an externally managed, pre-populated MongoDB database
 - Fixed-account login, Logout, and cookie-session page protection
 - Dynamic vehicle availability with category and status filters
 - Booking creation, rental-day updates, Return now, and completed-history deletion
@@ -66,39 +69,45 @@ From the project root:
 npm install
 ```
 
-Open `config/db.js` and paste your MongoDB Atlas connection string into:
+Open `config/db.js` and paste the MongoDB connection string supplied by the database administrator:
 
 ```javascript
 const MONGODB_URI = "";
 ```
 
-The project does not use a `.env` file for the database URL, port, or session secret.
-The local port and cookie-session secret are declared near the top of `server.js`.
+The external database must already contain the `cars` collection and the vehicle records used by the application. This project does not include local vehicle data or a seed command.
+
+The database must also provide a unique index on `cars.plateNo`. The application connects with `autoIndex: false`, so it does not create or modify database indexes.
+
+The project does not use a `.env` file for the database URL, port, or session secret. The local port and cookie-session secret are declared near the top of `server.js`.
 
 ```javascript
 const PORT = 8099;
 const SESSION_SECRET = "fleetdesk-group36-course-session-secret";
 ```
 
-After filling in the MongoDB URI, run:
+After configuring the URI, run:
 
 ```bash
-node seed.js
 npm start
 ```
 
-Open <http://localhost:8099>.
+The expected startup output is:
 
-Do not commit a real MongoDB Atlas connection string when sharing a public copy of the project.
+```text
+FleetDesk started successfully.
+Local URL: http://localhost:8099
+```
+
+Do not commit a real MongoDB connection string when sharing a public copy of the project.
 
 ## Commands
 
 ```bash
 npm start   # start the web application
-node seed.js # delete old cars and insert the seven demo cars
 ```
 
-`seed.js` clears the current `cars` collection, saves the seven demo cars again, and does not create rental orders.
+Vehicle records are read from the externally managed `cars` collection. The application does not create or seed base vehicle data.
 
 ## Web Routes
 
@@ -204,7 +213,6 @@ curl -i -X DELETE "$BASE_URL/api/bookings/$COMPLETED_ID"
 |   |-- db.js               MongoDB URL and connection helper
 |   `-- users.js            Fixed customer accounts
 |-- controllers/            Web and REST request handlers
-|-- data/cars.js            Seven seed vehicle records
 |-- lib/                    Shared business rules and category definitions
 |-- middleware/             requireAuth middleware
 |-- models/                 Car and RentalOrder schemas
@@ -213,7 +221,6 @@ curl -i -X DELETE "$BASE_URL/api/bookings/$COMPLETED_ID"
 |-- routes/                 Express route definitions
 |-- utils/                  HTTP error and async wrappers
 |-- views/                  EJS pages and partials
-|-- seed.js                 Vehicle seed entry point
 |-- server.js               Express application entry point
 ```
 
@@ -221,7 +228,7 @@ curl -i -X DELETE "$BASE_URL/api/bookings/$COMPLETED_ID"
 
 ### Car
 
-Each document stores a unique `plateNo`, category, transmission, seats, daily rate, description, and a local `imagePath`.
+Vehicle documents are provisioned externally. Each document stores a unique `plateNo`, category, transmission, seats, daily rate, description, and a local `imagePath`. The path must match one of the bundled `/images/cars/...` assets.
 
 ### RentalOrder
 
@@ -242,10 +249,14 @@ Money is stored in HKD. Dates are stored as BSON `Date` values. `overdue` is der
 - Completed bookings cannot change amount or duration.
 - Only completed bookings may be deleted.
 
-## Database Indexes
+## Database Ownership
 
-- Unique `cars.plateNo`
-- No custom `RentalOrder` indexes; the one-active-booking rule is enforced in the controller.
+The MongoDB database is provisioned and maintained outside this application.
+
+- `cars` must already contain vehicle records before the application starts.
+- `cars.plateNo` must have a unique index.
+- Database schema, data, backups, and indexes are owned by the external database administrator.
+- The application does not include `seed.js`, local vehicle arrays, or automatic index creation.
 
 ## Submission Package
 
