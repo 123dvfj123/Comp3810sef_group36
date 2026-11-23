@@ -3,7 +3,7 @@ const express = require("express");
 const session = require("cookie-session");
 
 const { connectDatabase } = require("./config/db");
-const { isOverdue } = require("./lib/rental-rules");
+const { isOverdue } = require("./models/rental-rules");
 const requireAuth = require("./middleware/require-auth");
 const apiRoutes = require("./routes/api-routes");
 const authRoutes = require("./routes/auth-routes");

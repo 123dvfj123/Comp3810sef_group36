@@ -2,15 +2,15 @@ const mongoose = require("mongoose");
 
 const Car = require("../models/Car");
 const RentalOrder = require("../models/RentalOrder");
-const asyncHandler = require("../utils/async-handler");
-const HttpError = require("../utils/http-error");
+const asyncHandler = require("../middleware/async-handler");
+const HttpError = require("../middleware/http-error");
 const {
   calculateEstimatedAmount,
   calculateExpectedReturnAt,
   calculateReturnTotals,
   isOverdue,
   isValidRentalDays,
-} = require("../lib/rental-rules");
+} = require("../models/rental-rules");
 
 async function saveNewRental(user, car, rentalDays, notes) {
   const pickupAt = new Date();

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { CATEGORIES } = require("../lib/car-categories");
+const { CATEGORIES } = require("./car-categories");
 
 const carSchema = new mongoose.Schema(
   {

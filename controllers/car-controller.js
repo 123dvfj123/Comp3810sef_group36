@@ -1,8 +1,8 @@
 const Car = require("../models/Car");
 const RentalOrder = require("../models/RentalOrder");
-const asyncHandler = require("../utils/async-handler");
-const HttpError = require("../utils/http-error");
-const { CATEGORIES } = require("../lib/car-categories");
+const asyncHandler = require("../middleware/async-handler");
+const HttpError = require("../middleware/http-error");
+const { CATEGORIES } = require("../models/car-categories");
 
 const AVAILABILITY_VALUES = ["Available", "Rented"];
 
