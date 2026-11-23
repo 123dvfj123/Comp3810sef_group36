@@ -63,23 +63,18 @@ Implemented:
 
 ## Setup
 
-From the project root:
+The MongoDB connection string is already configured in `config/db.js`, so a fresh clone can run without extra database setup:
 
 ```bash
 npm install
+npm start
 ```
 
-Open `config/db.js` and paste the MongoDB connection string supplied by the database administrator:
+The external database already contains the `cars` collection and the vehicle records used by the application. This project does not include local vehicle data or a seed command.
 
-```javascript
-const MONGODB_URI = "";
-```
+The database also provides a unique index on `cars.plateNo`. The application connects with `autoIndex: false`, so it does not create or modify database indexes.
 
-The external database must already contain the `cars` collection and the vehicle records used by the application. This project does not include local vehicle data or a seed command.
-
-The database must also provide a unique index on `cars.plateNo`. The application connects with `autoIndex: false`, so it does not create or modify database indexes.
-
-The project does not use a `.env` file for the database URL, port, or session secret. The local port and cookie-session secret are declared near the top of `server.js`.
+The project does not use a `.env` file. The database URL is declared in `config/db.js`; the local port and cookie-session secret are declared near the top of `server.js`.
 
 ```javascript
 const PORT = 8099;
@@ -88,21 +83,12 @@ const SESSION_SECRET = "fleetdesk-session-signing-key-2026";
 
 Change the session secret before deploying to a public server.
 
-After configuring the URI, run:
-
-```bash
-npm start
-```
-
 The expected startup output is:
 
 ```text
 FleetDesk started successfully.
 Local URL: http://localhost:8099
 ```
-
-Do not commit a real MongoDB connection string when sharing a public copy of the project.
-
 ## Commands
 
 ```bash
