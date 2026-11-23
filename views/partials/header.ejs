@@ -36,4 +36,4 @@
       <div class="shell flash flash-error" role="alert"><%= flashError %></div>
     <% } %>
 
-    <main class="shell page-shell">
+    <main class="shell page-shell<%= currentPath === "/login" ? " page-shell-login" : "" %>">

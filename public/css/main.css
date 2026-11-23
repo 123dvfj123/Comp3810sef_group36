@@ -127,6 +127,10 @@ img {
   padding: 48px 0 80px;
 }
 
+.page-shell-login {
+  padding-top: 16px;
+}
+
 .page-hero {
   display: flex;
   justify-content: space-between;
