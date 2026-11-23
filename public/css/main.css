@@ -602,6 +602,19 @@ dd {
   color: var(--muted);
 }
 
+.account-hints {
+  display: grid;
+  gap: 5px;
+  margin-top: 22px;
+  padding-top: 19px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+}
+
+.account-hints code {
+  color: var(--navy);
+}
+
 .form-alert {
   margin-top: 18px;
   padding: 12px 14px;
