@@ -136,6 +136,8 @@ The API is intentionally open for course demonstration and does not use session 
 | PUT | `/api/bookings/:id` | `200` | `400`, `404`, `409`, `500` |
 | DELETE | `/api/bookings/:id` | `200` | `404`, `409`, `500` |
 
+`plateNo` must be an existing car taken from the Cars page, and the car must not have an active booking.
+
 POST body:
 
 ```json
@@ -143,7 +145,7 @@ POST body:
   "username": "customer01",
   "customerName": "Chan Tai Man",
   "customerPhone": "91234567",
-  "plateNo": "HK-SUV-01",
+  "plateNo": "REPLACE-WITH-PLATE",
   "rentalDays": 3,
   "notes": "API demo"
 }
@@ -180,7 +182,7 @@ curl -i -X POST "$BASE_URL/api/bookings" \
     "username": "customer01",
     "customerName": "Chan Tai Man",
     "customerPhone": "91234567",
-    "plateNo": "HK-SUV-01",
+    "plateNo": "REPLACE-WITH-PLATE",
     "rentalDays": 3,
     "notes": "API demo"
   }'
