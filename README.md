@@ -4,6 +4,18 @@ FleetDesk is a customer-facing car rental web application built with Express, EJ
 
 Vehicle records are provided by an externally managed MongoDB database. This repository contains no local vehicle data and no seed module.
 
+## Group Information
+
+Group 36
+
+| Member | Student ID | Work role |
+|---|---|---|
+| Yuan Chong Jun | 13705584 | Express entry point, MongoDB connection, Git integration, README, ZIP packaging, presentation control |
+| Huang Wei Jia | 13686319 | MongoDB models, account configuration, Login/Logout, authentication middleware, external database integration |
+| Tan Yuan Ting | 13374348 | EJS pages, forms, vehicle images, CSS, responsive layout |
+| Liu Jia Hao | 13662451 | Vehicle queries, Web CRUD, rental rules, amount calculation, Return now |
+| Hu Qing Kai | 13661454 | REST API, CURL testing, QA, presentation preparation |
+
 ## Features
 
 - Customer sign-in with accounts configured on the server
@@ -20,14 +32,12 @@ The application does not include registration, payments, deposits, licensing doc
 
 ## Accounts
 
-Customer accounts are defined in `config/users.js` and are not stored in MongoDB.
+Customer accounts are defined in `config/users.js` and are not stored in MongoDB. These are the valid login credentials for the application.
 
-| Username | Customer |
-|---|---|
-| `customer01` | Liu Jia Hao |
-| `customer02` | Huang Wei Jia |
-
-Passwords are configured in the same file.
+| Username | Password | Customer |
+|---|---|---|
+| `customer01` | `Rental2026!` | Liu Jia Hao |
+| `customer02` | `Rental2026!` | Huang Wei Jia |
 
 ## Technology
 
@@ -100,6 +110,30 @@ npm start   # start the web application
 ```
 
 Vehicle records are read from the externally managed `cars` collection. The application does not create or seed base vehicle data.
+
+## Operation Guide
+
+### Sign in and sign out
+
+1. Open `http://localhost:8099/login`.
+2. Enter `customer01` with password `Rental2026!`, or `customer02` with password `Rental2026!`.
+3. Press **Enter FleetDesk**.
+4. Press **Logout** in the top navigation to end the session.
+
+### Web CRUD pages
+
+| Operation | Page | Action |
+|---|---|---|
+| Read | `/cars` | Filter by category or availability, then open a vehicle |
+| Create | `/cars/:plateNo` | Press **Rent now**, choose 1-30 days, and submit the form |
+| Read | `/bookings` | Open **My bookings** and select a booking |
+| Update | `/bookings/:id` | Press **Change rental days** and save the new duration |
+| Update | `/bookings/:id` | Press **Return now** to complete the rental |
+| Delete | `/bookings/:id` | Press **Delete completed booking** on a completed booking |
+
+### RESTful services
+
+The four `/api/bookings` endpoints, their HTTP methods, paths and CURL commands are listed in [REST API](#rest-api) and [CURL Examples](#curl-examples).
 
 ## Web Routes
 
@@ -198,7 +232,7 @@ COMPLETED_ID="PASTE_COMPLETED_BOOKING_ID"
 curl -i -X DELETE "$BASE_URL/api/bookings/$COMPLETED_ID"
 ```
 
-## Directory Structure
+## Project Files
 
 ```text
 .
@@ -214,6 +248,16 @@ curl -i -X DELETE "$BASE_URL/api/bookings/$COMPLETED_ID"
 |-- views/                  EJS pages and partials
 |-- server.js               Express application entry point
 ```
+
+- `server.js`: Express entry point, middleware, route mounting and startup messages.
+- `package.json`: dependency list and the `npm start` command.
+- `public/`: application CSS and vehicle images used by the pages.
+- `views/`: EJS pages and shared partials for sign-in, cars and bookings.
+- `models/`: `Car` and `RentalOrder` schemas plus the rental rules.
+- `controllers/`: web and REST request handlers.
+- `routes/`: Express route definitions.
+- `middleware/`: authentication guard and HTTP error helpers.
+- `config/`: MongoDB connection helper and customer accounts.
 
 ## Data Model
 
