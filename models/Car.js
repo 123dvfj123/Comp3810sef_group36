@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 
-// The four categories allowed by the vehicle data contract.
 const CATEGORIES = ["SUV", "Sedan", "MPV", "Sport Car"];
 
 const carSchema = new mongoose.Schema(

@@ -1,7 +1,5 @@
 const mongoose = require("mongoose");
 
-// The MongoDB database is managed externally.
-// Paste the connection string supplied by the database administrator.
 const MONGODB_URI = "";
 
 async function connectDatabase() {

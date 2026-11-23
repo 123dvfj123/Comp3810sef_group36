@@ -11,9 +11,7 @@ const bookingRoutes = require("./routes/booking-routes");
 const carRoutes = require("./routes/car-routes");
 
 const app = express();
-// Local course-demo port. Change this number if port 8099 is already in use.
 const PORT = 8099;
-// cookie-session signing key used by this course project.
 const SESSION_SECRET = "fleetdesk-group36-course-session-secret";
 const moneyFormatter = new Intl.NumberFormat("en-HK", {
   minimumFractionDigits: 2,
