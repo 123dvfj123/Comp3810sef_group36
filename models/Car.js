@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
-const { CATEGORIES } = require("./car-categories");
+
+// The four categories allowed by the vehicle data contract.
+const CATEGORIES = ["SUV", "Sedan", "MPV", "Sport Car"];
 
 const carSchema = new mongoose.Schema(
   {
@@ -54,4 +56,7 @@ const carSchema = new mongoose.Schema(
   { collection: "cars", versionKey: false },
 );
 
-module.exports = mongoose.model("Car", carSchema);
+const Car = mongoose.model("Car", carSchema);
+
+module.exports = Car;
+module.exports.CATEGORIES = CATEGORIES;
