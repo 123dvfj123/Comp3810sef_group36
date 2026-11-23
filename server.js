@@ -12,7 +12,7 @@ const carRoutes = require("./routes/car-routes");
 
 const app = express();
 const PORT = 8099;
-const SESSION_SECRET = "fleetdesk-group36-course-session-secret";
+const SESSION_SECRET = "fleetdesk-session-signing-key-2026";
 const moneyFormatter = new Intl.NumberFormat("en-HK", {
   minimumFractionDigits: 2,
   maximumFractionDigits: 2,

@@ -1,43 +1,33 @@
-# FleetDesk Car Rental System (Course Demo)
+# FleetDesk Car Rental System
 
-> **DEMO ONLY.** This repository is a COMP3810SEF Group 36 course project used for coursework demonstration. It is not production software. The preset demo accounts and fixed cookie-session secret are included for demonstration only.
+FleetDesk is a customer-facing car rental web application built with Express, EJS, MongoDB, Mongoose, and cookie-session. Customers can browse specific vehicles, create immediate rentals, update rental days, return a car, and delete completed booking history.
 
-FleetDesk is a customer-facing car rental web application for COMP3810SEF Group 36. It uses Express, EJS, MongoDB, Mongoose, and cookie-session. Customers can browse specific vehicles, create immediate rentals, update rental days, return a car, and delete completed booking history.
+Vehicle records are provided by an externally managed MongoDB database. This repository contains no local vehicle data and no seed module.
 
-Vehicle records are assumed to be provided by an externally managed MongoDB database. This repository contains no local vehicle data or seed module.
+## Features
 
-## Group Information
-
-| Member | Student ID | Main role |
-|---|---|---|
-| Yuan Chong Jun | 13705584 | Express entry point, MongoDB connection, Git integration, README, ZIP, presentation control |
-| Huang Wei Jia | 13686319 | MongoDB models, fixed accounts, Login/Logout, authentication middleware, external database integration |
-| Tan Yuan Ting | 13374348 | EJS pages, forms, vehicle images, CSS, responsive layout |
-| Liu Jia Hao | 13662451 | Vehicle queries, Web CRUD, rental rules, amount calculation, Return now |
-| Hu Qing Kai | 13661454 | REST API, CURL API testing, QA, rehearsal timing |
-
-## Project Scope
-
-- Customer login with two preset accounts
+- Customer sign-in with accounts configured on the server
 - Individual vehicle cards with local images
 - Vehicle records read from a pre-populated external MongoDB database
 - Category and availability filters
-- Immediate rental start with a 1–30 day duration
+- Immediate rental start with a 1-30 day duration
 - Active and completed booking lifecycle
 - Overdue display based on `expectedReturnAt`
 - Four REST CRUD endpoints for bookings
 - Controller check that prevents a second active booking for the same car
 
-The project does not include registration, payments, deposits, licensing documents, image upload, a staff dashboard, future-date reservations, or an AI feature.
+The application does not include registration, payments, deposits, licensing documents, image upload, a staff dashboard, future-date reservations, or an AI feature.
 
-## Demo Accounts
+## Accounts
 
-| Username | Password |
+Customer accounts are defined in `config/users.js` and are not stored in MongoDB.
+
+| Username | Customer |
 |---|---|
-| `customer01` | `demo123` |
-| `customer02` | `demo123` |
+| `customer01` | Liu Jia Hao |
+| `customer02` | Huang Wei Jia |
 
-The fixed accounts are stored on the server in `config/users.js`. They remain part of the application and are not stored in MongoDB.
+Passwords are configured in the same file.
 
 ## Technology
 
@@ -56,7 +46,7 @@ Implemented:
 
 - Car and RentalOrder schemas with basic Mongoose validation
 - Vehicle records read from an externally managed, pre-populated MongoDB database
-- Fixed-account login, Logout, and cookie-session page protection
+- Fixed-account sign-in, Logout, and cookie-session page protection
 - Dynamic vehicle availability with category and status filters
 - Booking creation, rental-day updates, Return now, and completed-history deletion
 - Four REST booking operations with documented JSON error responses
@@ -83,8 +73,10 @@ The project does not use a `.env` file for the database URL, port, or session se
 
 ```javascript
 const PORT = 8099;
-const SESSION_SECRET = "fleetdesk-group36-course-session-secret";
+const SESSION_SECRET = "fleetdesk-session-signing-key-2026";
 ```
+
+Change the session secret before deploying to a public server.
 
 After configuring the URI, run:
 
@@ -113,11 +105,11 @@ Vehicle records are read from the externally managed `cars` collection. The appl
 
 | Method | Path | Purpose |
 |---|---|---|
-| GET/POST | `/login` | Show login page and authenticate a preset customer |
-| GET | `/logout` | Clear the session and return to login |
+| GET/POST | `/login` | Show the sign-in page and authenticate a configured customer |
+| GET | `/logout` | Clear the session and return to sign-in |
 | GET | `/cars` | Browse and filter cars |
-| GET | `/cars/:plateNo` | Show one car and Rent now entry |
-| GET | `/bookings` | Show the signed-in customer’s bookings |
+| GET | `/cars/:plateNo` | Show one car and the Rent now entry |
+| GET | `/bookings` | Show the signed-in customer's bookings |
 | GET/POST | `/bookings/new/:plateNo` | Show and submit the booking form |
 | GET | `/bookings/:id` | Show booking details |
 | GET | `/bookings/:id/edit` | Show the rental-days form |
@@ -127,7 +119,7 @@ Vehicle records are read from the externally managed `cars` collection. The appl
 
 ## REST API
 
-The API is intentionally open for course demonstration and does not use session authentication.
+The REST API does not use session authentication. Access control should be added before exposing it publicly.
 
 | Method | Path | Success | Main failures |
 |---|---|---|---|
@@ -147,7 +139,7 @@ POST body:
   "customerPhone": "91234567",
   "plateNo": "REPLACE-WITH-PLATE",
   "rentalDays": 3,
-  "notes": "API demo"
+  "notes": "API request"
 }
 ```
 
@@ -184,7 +176,7 @@ curl -i -X POST "$BASE_URL/api/bookings" \
     "customerPhone": "91234567",
     "plateNo": "REPLACE-WITH-PLATE",
     "rentalDays": 3,
-    "notes": "API demo"
+    "notes": "API request"
   }'
 ```
 
@@ -210,15 +202,14 @@ curl -i -X DELETE "$BASE_URL/api/bookings/$COMPLETED_ID"
 
 ```text
 .
-|-- .github/                Pull request template
 |-- config/
 |   |-- db.js               MongoDB URL and connection helper
-|   `-- users.js            Fixed customer accounts
+|   `-- users.js            Customer accounts
 |-- controllers/            Web and REST request handlers
 |-- middleware/             Auth guard, async route wrapper and HTTP error helper
 |-- models/                 Car and RentalOrder schemas, category enum and rental rules
 |-- public/css/             Application styling
-|-- public/images/cars/     15 local image assets (7 active cars, 7 legacy assets, placeholder)
+|-- public/images/cars/     14 vehicle images and 1 placeholder image
 |-- routes/                 Express route definitions
 |-- views/                  EJS pages and partials
 |-- server.js               Express application entry point
@@ -240,8 +231,8 @@ Money is stored in HKD. Dates are stored as BSON `Date` values. `overdue` is der
 
 - A booking starts immediately.
 - Rental duration is an integer from 1 to 30 days.
-- `expectedReturnAt = pickupAt + rentalDays × 24 hours`.
-- The active amount is `rentalDays × dailyRate`.
+- `expectedReturnAt = pickupAt + rentalDays x 24 hours`.
+- The active amount is `rentalDays x dailyRate`.
 - Return billing uses `actualDays = max(1, ceil(elapsed / 24 hours))`.
 - Any partial day counts as one full day.
 - Each overdue day adds one additional full daily charge.
@@ -256,15 +247,4 @@ The MongoDB database is provisioned and maintained outside this application.
 - `cars` must already contain vehicle records before the application starts.
 - `cars.plateNo` must have a unique index.
 - Database schema, data, backups, and indexes are owned by the external database administrator.
-- The application does not include `seed.js`, local vehicle arrays, or automatic index creation.
-
-## Submission Package
-
-For final submission, copy the project into a folder named `comp3810sef_group36`, remove `node_modules`, and create `comp3810sef_group36.zip`.
-
-```text
-comp3810sef_group36/
-comp3810sef_group36.zip
-```
-
-Before submission, confirm that the project starts from a clean directory using the README commands.
+- The application does not include a seed script, local vehicle arrays, or automatic index creation.
