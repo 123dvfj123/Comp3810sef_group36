@@ -2,13 +2,13 @@ const users = [
   {
     username: "customer01",
     password: "demo123",
-    customerName: "Chan Tai Man",
+    customerName: "Liu Jia Hao",
     customerPhone: "91234567",
   },
   {
     username: "customer02",
     password: "demo123",
-    customerName: "Wong Ka Yan",
+    customerName: "Huang Wei Jia",
     customerPhone: "62345678",
   },
 ];
