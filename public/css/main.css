@@ -127,8 +127,11 @@ img {
   padding: 48px 0 80px;
 }
 
-.page-shell-login {
-  padding-top: 16px;
+.page-shell.page-shell-login {
+  width: 100%;
+  max-width: none;
+  min-height: 0;
+  padding: 0;
 }
 
 .page-hero {
@@ -538,19 +541,20 @@ dd {
 
 .login-hero {
   position: relative;
-  padding: 56px 56px;
+  display: flex;
+  align-items: center;
+  min-height: calc(100vh - 89px);
+  padding: 52px 56px;
   overflow: hidden;
-  border-radius: 2px;
-  background: #0d0d0d;
+  border-radius: 0;
+  background: #0b0d0e;
 }
 
 .login-hero::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: url("/images/cars/porsche-911-targa.png") no-repeat right 5% center;
-  background-size: 84% auto;
-  filter: contrast(1.12) saturate(1.1) brightness(1.12);
+  background: url("/images/hero.jpg") center 50% / cover no-repeat;
 }
 
 .login-hero::after {
@@ -558,30 +562,74 @@ dd {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(60% 75% at 58% 52%, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.03) 45%, rgba(13, 13, 13, 0) 70%),
-    radial-gradient(115% 100% at 72% 52%, rgba(13, 13, 13, 0) 30%, rgba(13, 13, 13, 0.52) 72%, rgba(13, 13, 13, 0.92) 100%),
-    linear-gradient(90deg, #0d0d0d 0%, rgba(13, 13, 13, 0.92) 16%, rgba(13, 13, 13, 0.3) 38%, rgba(13, 13, 13, 0) 56%);
+    radial-gradient(80% 100% at 70% 55%, rgba(10, 12, 13, 0) 35%, rgba(10, 12, 13, 0.5) 100%),
+    linear-gradient(90deg, rgba(8, 10, 12, 0.9) 0%, rgba(8, 10, 12, 0.55) 40%, rgba(8, 10, 12, 0.15) 68%, rgba(8, 10, 12, 0.45) 100%);
 }
 
 .login-hero .login-layout {
   position: relative;
   z-index: 1;
-  min-height: 56vh;
+  width: min(1180px, 100%);
+  min-height: 0;
+  align-items: start;
+}
+
+.login-copy {
+  padding-top: 12px;
 }
 
 .login-hero .login-copy h1 {
+  margin-bottom: 0;
+  max-width: 640px;
   color: #fff;
-  font-size: clamp(2rem, 3.4vw, 3.4rem);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.6rem, 4.3vw, 4.15rem);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.25);
 }
 
-.login-hero .login-copy .lead {
-  color: rgba(255, 255, 255, 0.66);
-}
 .login-hero .login-panel {
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+  align-self: center;
+  background: rgba(9, 11, 12, 0.58);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+  -webkit-backdrop-filter: blur(18px) saturate(1.15);
+  backdrop-filter: blur(18px) saturate(1.15);
 }
-.login-copy h1 {
-  font-size: clamp(2.8rem, 5vw, 4.8rem);
+
+.login-hero .login-panel h2 {
+  color: #fff;
+}
+
+.login-hero .login-panel label span {
+  color: rgba(255, 255, 255, 0.76);
+}
+
+.login-hero .login-panel input {
+  background: rgba(255, 255, 255, 0.96);
+  border-color: transparent;
+}
+
+.login-hero .login-panel .account-hints {
+  color: rgba(255, 255, 255, 0.62);
+  border-top-color: rgba(255, 255, 255, 0.18);
+}
+
+.login-hero .login-panel .account-hints code {
+  color: #fff;
+}
+
+.login-hero .login-panel .button-primary {
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.62);
+  letter-spacing: 0.04em;
+}
+
+.login-hero .login-panel .button-primary:hover {
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .login-panel {
@@ -801,27 +849,29 @@ dd {
 
 @media (max-width: 980px) {
   .login-hero {
-    padding: 32px 24px 220px;
-  }
-
-  .login-hero::before {
-    background-size: 132% auto;
-    background-position: center bottom;
-    opacity: 0.95;
+    min-height: calc(100vh - 89px);
+    padding: 40px 24px 56px;
   }
 
   .login-hero .login-layout {
-    min-height: 0;
+    grid-template-columns: 1fr;
+    gap: 28px;
+    width: 100%;
+  }
+
+  .login-copy {
+    padding-top: 0;
+  }
+
+  .login-hero .login-panel {
+    align-self: stretch;
+    max-width: 100%;
   }
 }
 
 @media (max-width: 680px) {
   .login-hero {
-    padding: 24px 16px 150px;
-  }
-
-  .login-hero::before {
-    background-size: 168% auto;
+    padding: 32px 16px 40px;
   }
 
   .login-hero .login-layout,
@@ -836,7 +886,9 @@ dd {
   }
 
   .login-hero .login-copy h1 {
-    font-size: clamp(1.85rem, 7.8vw, 2.4rem);
+    max-width: 100%;
+    font-size: clamp(1.6rem, 6vw, 2.2rem);
+    letter-spacing: -0.03em;
   }
 }
 @media (max-width: 980px) {
