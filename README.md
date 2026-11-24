@@ -36,8 +36,8 @@ Customer accounts are defined in `config/users.js` and are not stored in MongoDB
 
 | Username | Password | Customer |
 |---|---|---|
-| `customer01` | `Rental2026!` | Liu Jia Hao |
-| `customer02` | `Rental2026!` | Huang Wei Jia |
+| `customer01` | `123456` | Liu Jia Hao |
+| `customer02` | `123456` | Huang Wei Jia |
 
 ## Technology
 
@@ -102,7 +102,7 @@ Vehicle records are read from the externally managed `cars` collection. The appl
 ### Sign in and sign out
 
 1. Open `http://localhost:8099/login`.
-2. Enter `customer01` with password `Rental2026!`, or `customer02` with password `Rental2026!`.
+2. Enter `customer01` with password `123456`, or `customer02` with password `123456`.
 3. Press **Enter FleetDesk**.
 4. Press **Logout** in the top navigation to end the session.
 
