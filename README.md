@@ -1,161 +1,150 @@
-# Comp3810sef_group36 Car Rental System
+# Legendary Motorsport Car Rental System
 
-This is a customer-facing car rental web application built with Express, EJS, MongoDB, Mongoose, and cookie-session. Customers can browse specific vehicles, create immediate rentals, update rental days, return a car, and delete completed booking history.
+Legendary Motorsport is a customer-facing car rental web application built for COMP 3810SEF Group 36. Customers can sign in, browse and filter vehicles, create a rental order, change an active rental period, return a vehicle, and remove completed booking records.
 
-Vehicle records are provided by an externally managed MongoDB database. This repository contains no local vehicle data and no seed module.
+## 1 Project Information
 
-## Group Information
+### 1.1 Basic Information
 
-Group 36
+| Item | Details |
+|---|---|
+| Project name | Legendary Motorsport Car Rental System |
+| Project type | Customer car rental web application |
+| Purpose | Provide an end-to-end workflow for renting a vehicle, returning it, and calculating the rental charge |
+| Target users | Customers who need to rent a vehicle online |
+| Local access address | <http://localhost:8099> |
+| Repository | <https://github.com/123dvfj123/Comp3810sef_group36> |
+| Completion date | 28 November 2026 |
 
-| Member | Student ID | Work role |
+### 1.2 Project Overview
+
+Legendary Motorsport is a customer-facing car rental web application. After signing in, customers can browse and filter vehicles, view vehicle details, create a rental order for 1 to 30 days, change the rental period, return the vehicle, and delete completed bookings. The system uses Node.js, Express, EJS, Mongoose, and MongoDB. Vehicle records are stored in an externally managed database.
+
+### 1.3 Project Scope
+
+The application includes:
+
+- Fixed-account login, Logout, and session-based page protection
+- Vehicle list, category filter, availability filter, and vehicle details
+- Immediate rental creation with a 1 to 30 day duration and calculated total amount
+- Rental-period updates, Return now, completion, and deletion of completed booking history
+- Four RESTful CRUD endpoints for rental bookings
+
+The application does not include registration, online payment, deposits, licence-document upload, a staff dashboard, future-date reservations, or AI features.
+
+## 2 Group Information
+
+### 2.1 Course and Repository
+
+| Item | Details |
+|---|---|
+| Course | COMP 3810SEF |
+| Group | Group 36 |
+| Repository | <https://github.com/123dvfj123/Comp3810sef_group36> |
+
+### 2.2 Members and Responsibilities
+
+| Member | Student ID | Responsibility |
 |---|---|---|
-| Yuan Chong Jun | 13705584 | Express entry point, MongoDB connection, Git integration, README, ZIP packaging, presentation control |
-| Huang Wei Jia | 13686319 | MongoDB models, account configuration, Login/Logout, authentication middleware, external database integration |
-| Tan Yuan Ting | 13374348 | EJS pages, forms, vehicle images, CSS, responsive layout |
-| Liu Jia Hao | 13662451 | Vehicle queries, Web CRUD, rental rules, amount calculation, Return now |
-| Hu Qing Kai | 13661454 | REST API, CURL testing, QA, presentation preparation |
+| Yuan Chong Jun | 13705584 | Team leader, frontend design, Git integration, README, and ZIP packaging |
+| Huang Wei Jia | 13686319 | Database and API development |
+| Tan Yuan Ting | 13374348 | Feature integration |
+| Liu Jia Hao | 13662451 | Testing and documentation |
+| Hu Qing Kai | 13661454 | Backend development, REST API, CURL testing, quality assurance, presentation materials, and presenting |
 
-## Features
+## 3 Project File Introduction
 
-- Customer sign-in with accounts configured on the server
-- Individual vehicle cards with local images
-- Vehicle records read from a pre-populated external MongoDB database
-- Category and availability filters
-- Immediate rental start with a 1-30 day duration
-- Active and completed booking lifecycle
-- Overdue display based on `expectedReturnAt`
-- Four REST CRUD endpoints for bookings
-- Controller check that prevents a second active booking for the same car
+### 3.1 Final Project Structure
 
-The application does not include registration, payments, deposits, licensing documents, image upload, a staff dashboard, future-date reservations, or an AI feature.
+```text
+comp3810sef_group36/
+|-- config/
+|-- controllers/
+|-- docs/
+|   `-- screenshots/
+|-- middleware/
+|-- models/
+|-- public/
+|-- routes/
+|-- views/
+|-- .gitignore
+|-- curl-commands.txt
+|-- package.json
+|-- package-lock.json
+|-- server.js
+`-- README.md
+```
 
-## Accounts
+### 3.2 Essential Files and Directories
 
-Customer accounts are defined in `config/users.js` and are not stored in MongoDB. These are the valid login credentials for the application.
+| File or directory | Purpose |
+|---|---|
+| `server.js` | Express application entry point, middleware, static assets, route mounting, and error handling |
+| `package.json` | Dependency list and the `npm start` command |
+| `public/` | CSS, login background, vehicle images, and the image fallback |
+| `views/` | EJS pages and shared partials |
+| `models/` | `Car`, `RentalOrder`, and rental-rule definitions |
+| `controllers/` | Web page and REST API request handlers |
+| `routes/` | Web and API route definitions |
+| `middleware/` | Authentication guard, asynchronous wrapper, and HTTP error helper |
+| `config/` | MongoDB connection helper and fixed customer accounts |
+| `docs/screenshots/` | Screenshots of the completed workflow |
+| `curl-commands.txt` | CURL examples for the four booking API operations |
 
-| Username | Password | Customer |
-|---|---|---|
-| `customer01` | `123456` | Liu Jia Hao |
-| `customer02` | `123456` | Huang Wei Jia |
+## 4 Operation Guide
 
-## Technology
+### 4.1 Installation and Startup
 
-- Node.js 20 or later
-- Express
-- EJS
-- MongoDB (externally managed)
-- Mongoose
-- cookie-session
+1. Install Node.js 20 or later.
+2. Run `npm install` to install the dependencies.
+3. Run `npm start` to start the server.
+4. Open <http://localhost:8099/login>.
 
-## Implementation Status
-
-The customer-facing application workflow is implemented in this repository.
-
-Implemented:
-
-- Car and RentalOrder schemas with basic Mongoose validation
-- Vehicle records read from an externally managed, pre-populated MongoDB database
-- Fixed-account sign-in, Logout, and cookie-session page protection
-- Dynamic vehicle availability with category and status filters
-- Booking creation, rental-day updates, Return now, and completed-history deletion
-- Four REST booking operations with documented JSON error responses
-
-## Setup
-
-The MongoDB connection string is already configured in `config/db.js`, so a fresh clone can run without extra database setup:
+The MongoDB connection string is already set in `config/db.js`, so the project can run directly after cloning. The external database must already contain the `cars` collection and its vehicle records. To use a different database, change `MONGODB_URI` in that file.
 
 ```bash
 npm install
 npm start
 ```
 
-The external database already contains the `cars` collection and the vehicle records used by the application. This project does not include local vehicle data or a seed command.
+### 4.2 Login and Logout
 
-The database also provides a unique index on `cars.plateNo`. The application connects with `autoIndex: false`, so it does not create or modify database indexes.
+Valid accounts:
 
-The project does not use a `.env` file. The database URL is declared in `config/db.js`; the local port and cookie-session secret are declared near the top of `server.js`.
-
-```javascript
-const PORT = 8099;
-const SESSION_SECRET = "comp3810sef-session-signing-key-2026";
-```
-
-Change the session secret before deploying to a public server.
-
-The expected startup output is:
-
-```text
-started successfully.
-Local URL: http://localhost:8099
-```
-## Commands
-
-```bash
-npm start   # start the web application
-```
-
-Vehicle records are read from the externally managed `cars` collection. The application does not create or seed base vehicle data.
-
-## Operation Guide
-
-### Sign in and sign out
-
-1. Open `http://localhost:8099/login`.
-2. Enter `customer01` with password `123456`, or `customer02` with password `123456`.
-3. Press **Enter**.
-4. Press **Logout** in the top navigation to end the session.
-
-### Web CRUD pages
-
-| Operation | Page | Action |
+| Username | Password | Customer |
 |---|---|---|
-| Read | `/cars` | Filter by category or availability, then open a vehicle |
-| Create | `/cars/:plateNo` | Press **Rent now**, choose 1-30 days, and submit the form |
-| Read | `/bookings` | Open **My bookings** and select a booking |
-| Update | `/bookings/:id` | Press **Change rental days** and save the new duration |
-| Update | `/bookings/:id` | Press **Return now** to complete the rental |
-| Delete | `/bookings/:id` | Press **Delete completed booking** on a completed booking |
+| `customer01` | `123456` | Liu Jia Hao |
+| `customer02` | `123456` | Huang Wei Jia |
 
-### RESTful services
+To sign in, open the login page, enter a valid username and password, and select **Enter**. After successful login, the vehicle list opens. Select **Logout** in the top navigation to clear the session and return to the login page.
 
-The four `/api/bookings` endpoints, their HTTP methods, paths and CURL commands are listed in [REST API](#rest-api) and [CURL Examples](#curl-examples).
+### 4.3 Web CRUD Operations
 
-## Web Routes
-
-| Method | Path | Purpose |
+| Operation | Page or action | Result |
 |---|---|---|
-| GET/POST | `/login` | Show the sign-in page and authenticate a configured customer |
-| GET | `/logout` | Clear the session and return to sign-in |
-| GET | `/cars` | Browse and filter cars |
-| GET | `/cars/:plateNo` | Show one car and the Rent now entry |
-| GET | `/bookings` | Show the signed-in customer's bookings |
-| GET/POST | `/bookings/new/:plateNo` | Show and submit the booking form |
-| GET | `/bookings/:id` | Show booking details |
-| GET | `/bookings/:id/edit` | Show the rental-days form |
-| POST | `/bookings/:id/update` | Save a new rental duration |
-| POST | `/bookings/:id/return` | Return the car now and complete the booking |
-| POST | `/bookings/:id/delete` | Delete a completed booking |
+| Create | Open `/cars/:plateNo`, select **Rent now**, enter 1 to 30 rental days, and select **Create booking** | A new active rental order is created |
+| Read | Open `/cars`, `/bookings`, or `/bookings/:id` | The vehicle list, booking list, or booking details are displayed |
+| Update | On an active non-overdue booking, select **Change rental days**, enter a new duration, and select **Update booking** | The rental period, expected return time, and amount are recalculated |
+| Update | On an active booking, select **Return now** | The booking is completed and the vehicle becomes available |
+| Delete | Open a completed booking and select **Delete completed booking** | The completed booking is removed |
 
-## REST API
+### 4.4 RESTful CRUD API
 
 The REST API does not use session authentication. Access control should be added before exposing it publicly.
 
-| Method | Path | Success | Main failures |
-|---|---|---|---|
-| GET | `/api/bookings` | `200` | `500` |
-| POST | `/api/bookings` | `201` | `400`, `409`, `500` |
-| PUT | `/api/bookings/:id` | `200` | `400`, `404`, `409`, `500` |
-| DELETE | `/api/bookings/:id` | `200` | `404`, `409`, `500` |
+| Method | URI | Success status | Purpose |
+|---|---|---:|---|
+| GET | `/api/bookings` | 200 | Read all booking records |
+| POST | `/api/bookings` | 201 | Create a booking |
+| PUT | `/api/bookings/:id` | 200 | Change the rental period of an active, non-overdue booking |
+| DELETE | `/api/bookings/:id` | 200 | Delete a completed booking |
 
-`plateNo` must be an existing car taken from the Cars page, and the car must not have an active booking.
-
-POST body:
+POST request body:
 
 ```json
 {
   "username": "customer01",
-  "customerName": "Chan Tai Man",
+  "customerName": "Liu Jia Hao",
   "customerPhone": "91234567",
   "plateNo": "REPLACE-WITH-PLATE",
   "rentalDays": 3,
@@ -163,7 +152,7 @@ POST body:
 }
 ```
 
-PUT body:
+PUT request body:
 
 ```json
 {
@@ -171,15 +160,26 @@ PUT body:
 }
 ```
 
-### CURL Examples
+Error response:
 
-Set the base URL first:
+```json
+{
+  "error": {
+    "code": "INVALID_INPUT",
+    "message": "Detailed error message"
+  }
+}
+```
+
+#### CURL Examples
+
+Set the base URL:
 
 ```bash
 BASE_URL="http://localhost:8099"
 ```
 
-List bookings:
+Read bookings:
 
 ```bash
 curl -i "$BASE_URL/api/bookings"
@@ -192,7 +192,7 @@ curl -i -X POST "$BASE_URL/api/bookings" \
   -H "Content-Type: application/json" \
   -d '{
     "username": "customer01",
-    "customerName": "Chan Tai Man",
+    "customerName": "Liu Jia Hao",
     "customerPhone": "91234567",
     "plateNo": "REPLACE-WITH-PLATE",
     "rentalDays": 3,
@@ -200,12 +200,10 @@ curl -i -X POST "$BASE_URL/api/bookings" \
   }'
 ```
 
-Update rental days:
+Change the rental period:
 
 ```bash
-BOOKING_ID="PASTE_ACTIVE_BOOKING_ID"
-
-curl -i -X PUT "$BASE_URL/api/bookings/$BOOKING_ID" \
+curl -i -X PUT "$BASE_URL/api/bookings/REPLACE-WITH-ACTIVE-BOOKING-ID" \
   -H "Content-Type: application/json" \
   -d '{"rentalDays": 2}'
 ```
@@ -213,68 +211,83 @@ curl -i -X PUT "$BASE_URL/api/bookings/$BOOKING_ID" \
 Delete a completed booking:
 
 ```bash
-COMPLETED_ID="PASTE_COMPLETED_BOOKING_ID"
-
-curl -i -X DELETE "$BASE_URL/api/bookings/$COMPLETED_ID"
+curl -i -X DELETE "$BASE_URL/api/bookings/REPLACE-WITH-COMPLETED-BOOKING-ID"
 ```
 
-## Project Files
+## 5 System Architecture and Technology Stack
+
+The request flow is:
 
 ```text
-.
-|-- config/
-|   |-- db.js               MongoDB URL and connection helper
-|   `-- users.js            Customer accounts
-|-- controllers/            Web and REST request handlers
-|-- middleware/             Auth guard, async route wrapper and HTTP error helper
-|-- models/                 Car and RentalOrder schemas, category enum and rental rules
-|-- public/css/             Application styling
-|-- public/images/cars/     7 vehicle images and 1 placeholder image
-|-- routes/                 Express route definitions
-|-- views/                  EJS pages and partials
-|-- server.js               Express application entry point
+Browser and EJS
+  -> Express routes
+  -> Controllers
+  -> Mongoose models and rental rules
+  -> External MongoDB
+  -> EJS page or JSON response
 ```
 
-- `server.js`: Express entry point, middleware, route mounting and startup messages.
-- `package.json`: dependency list and the `npm start` command.
-- `public/`: application CSS and vehicle images used by the pages.
-- `views/`: EJS pages and shared partials for sign-in, cars and bookings.
-- `models/`: `Car` and `RentalOrder` schemas plus the rental rules.
-- `controllers/`: web and REST request handlers.
-- `routes/`: Express route definitions.
-- `middleware/`: authentication guard and HTTP error helpers.
-- `config/`: MongoDB connection helper and customer accounts.
+| Layer | Technology |
+|---|---|
+| Runtime | Node.js 20 or later |
+| Web framework | Express 5 |
+| View engine | EJS |
+| Data access | Mongoose 8 |
+| Database | MongoDB Atlas |
+| Session | cookie-session |
 
-## Data Model
+The MongoDB URI is configured in `config/db.js` and points to the external course database. The session secret should be replaced before public deployment, and the REST API should be protected before it is exposed outside the course environment.
 
-### Car
+## 6 Data Model and Business Rules
 
-Vehicle documents are provisioned externally. Each document stores a unique `plateNo`, category, transmission, seats, daily rate, description, and a local `imagePath`. The path must match one of the bundled `/images/cars/...` assets.
+### 6.1 Car
 
-### RentalOrder
+Each vehicle stores a unique `plateNo`, brand, model, category, transmission type, seat count, daily rate, description, and local image path.
 
-Each document stores the customer, vehicle and price snapshots, pickup time, rental days, expected return time, amount, and status. Return-time fields are added when the booking becomes `completed`.
+### 6.2 RentalOrder
 
-Money is stored in HKD. Dates are stored as BSON `Date` values. `overdue` is derived for display and is not stored as a `status`.
+Each booking stores customer and vehicle snapshots, pickup time, rental days, daily rate, total amount, expected return time, actual return details, status, and optional notes. Rental orders use the statuses `active` and `completed`; overdue is calculated for display.
 
-## Business Rules
+### 6.3 Business Rules
 
-- A booking starts immediately.
-- Rental duration is an integer from 1 to 30 days.
-- `expectedReturnAt = pickupAt + rentalDays x 24 hours`.
-- The active amount is `rentalDays x dailyRate`.
-- Return billing uses `actualDays = max(1, ceil(elapsed / 24 hours))`.
-- Any partial day counts as one full day.
-- Each overdue day adds one additional full daily charge.
-- Only active, non-overdue bookings may change duration.
-- Completed bookings cannot change amount or duration.
-- Only completed bookings may be deleted.
+- A rental starts immediately after the order is created.
+- The rental period must be an integer from 1 to 30 days.
+- The expected return time equals the pickup time plus the rental period in 24-hour days.
+- The active rental amount equals rental days multiplied by the daily rate.
+- A return of less than one full day is billed as one day.
+- Each overdue day adds one additional daily charge.
+- Only an active, non-overdue booking can have its rental period changed.
+- A completed booking cannot change its duration or amount.
+- Only a completed booking can be deleted.
 
-## Database Ownership
+## 7 Testing and Screenshots
 
-The MongoDB database is provisioned and maintained outside this application.
+The final interface and API were manually verified. The screenshots below cover the required customer workflow and the successful REST API response.
 
-- `cars` must already contain vehicle records before the application starts.
-- `cars.plateNo` must have a unique index.
-- Database schema, data, backups, and indexes are owned by the external database administrator.
-- The application does not include a seed script, local vehicle arrays, or automatic index creation.
+### 7.1 Login Page
+
+![Login page](docs/screenshots/01-login-page.png)
+
+### 7.2 Vehicle List and Filtering
+
+![Vehicle list and category filter](docs/screenshots/02-vehicle-list-and-filter.png)
+
+### 7.3 Vehicle Details
+
+![Vehicle details](docs/screenshots/03-vehicle-details.png)
+
+### 7.4 Create Booking
+
+![Create booking](docs/screenshots/04-create-booking.png)
+
+### 7.5 Change Rental Period
+
+![Change rental period](docs/screenshots/05-change-rental-days.png)
+
+### 7.6 Completed Booking
+
+![Completed booking](docs/screenshots/06-completed-booking.png)
+
+### 7.7 REST API Response
+
+![REST API success response](docs/screenshots/07-rest-api-response.png)

@@ -1,5 +1,5 @@
 /* CREATE */
-curl -i -X POST -H "Content-Type: application/json" --data '{"username":"customer01","customerName":"Liu Jia Hao","customerPhone":"91234567","plateNo":"HK-SED-01","rentalDays":3,"notes":"curl demo"}' http://localhost:8099/api/bookings
+curl -i -X POST -H "Content-Type: application/json" --data '{"username":"customer01","customerName":"Liu Jia Hao","customerPhone":"91234567","plateNo":"HK-SED-01","rentalDays":3,"notes":"API request"}' http://localhost:8099/api/bookings
 /* READ */
 curl -i -X GET http://localhost:8099/api/bookings
 /* UPDATE */
