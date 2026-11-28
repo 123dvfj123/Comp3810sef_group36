@@ -229,7 +229,7 @@ curl -i -X DELETE "$BASE_URL/api/bookings/$COMPLETED_ID"
 |-- middleware/             Auth guard, async route wrapper and HTTP error helper
 |-- models/                 Car and RentalOrder schemas, category enum and rental rules
 |-- public/css/             Application styling
-|-- public/images/cars/     14 vehicle images and 1 placeholder image
+|-- public/images/cars/     7 vehicle images and 1 placeholder image
 |-- routes/                 Express route definitions
 |-- views/                  EJS pages and partials
 |-- server.js               Express application entry point

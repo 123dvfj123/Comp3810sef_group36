@@ -440,7 +440,6 @@ textarea:focus {
   font-size: 0.74rem;
 }
 
-.quick-specs,
 .spec-grid,
 .detail-list,
 .order-summary dl {
@@ -449,11 +448,6 @@ textarea:focus {
   margin: 20px 0;
 }
 
-.quick-specs {
-  grid-template-columns: repeat(3, 1fr);
-}
-
-.quick-specs div,
 .spec-grid div {
   padding: 12px;
   border-radius: 2px;
@@ -958,7 +952,6 @@ dd {
     justify-items: start;
   }
 
-  .quick-specs,
   .spec-grid {
     grid-template-columns: 1fr 1fr;
   }
