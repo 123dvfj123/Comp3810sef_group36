@@ -12,7 +12,7 @@ const carRoutes = require("./routes/car-routes");
 
 const app = express();
 const PORT = 8099;
-const SESSION_SECRET = "fleetdesk-session-signing-key-2026";
+const SESSION_SECRET = "comp3810sef-session-signing-key-2026";
 const moneyFormatter = new Intl.NumberFormat("en-HK", {
   minimumFractionDigits: 2,
   maximumFractionDigits: 2,
@@ -74,7 +74,7 @@ app.use((req, res) => {
   res.status(404).render("error", {
     title: "Page Not Found",
     status: 404,
-    message: `${req.path} is not a valid FleetDesk route.`,
+    message: `${req.path} is not a valid route.`,
   });
 });
 
@@ -117,19 +117,19 @@ async function startServer() {
   await connectDatabase();
 
   const server = app.listen(PORT, () => {
-    console.log("FleetDesk started successfully.");
+    console.log("started successfully.");
     console.log(`Local URL: http://localhost:${PORT}`);
   });
 
   server.on("error", (error) => {
-    console.error("FleetDesk failed to listen:", error.message);
+    console.error("failed to listen:", error.message);
     process.exitCode = 1;
   });
 }
 
 if (require.main === module) {
   startServer().catch((error) => {
-    console.error("FleetDesk failed to start:", error.message);
+    console.error("failed to start:", error.message);
     process.exitCode = 1;
   });
 }

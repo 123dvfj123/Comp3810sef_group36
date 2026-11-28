@@ -1,6 +1,6 @@
-# FleetDesk Car Rental System
+# Comp3810sef_group36 Car Rental System
 
-FleetDesk is a customer-facing car rental web application built with Express, EJS, MongoDB, Mongoose, and cookie-session. Customers can browse specific vehicles, create immediate rentals, update rental days, return a car, and delete completed booking history.
+This is a customer-facing car rental web application built with Express, EJS, MongoDB, Mongoose, and cookie-session. Customers can browse specific vehicles, create immediate rentals, update rental days, return a car, and delete completed booking history.
 
 Vehicle records are provided by an externally managed MongoDB database. This repository contains no local vehicle data and no seed module.
 
@@ -78,7 +78,7 @@ The project does not use a `.env` file. The database URL is declared in `config/
 
 ```javascript
 const PORT = 8099;
-const SESSION_SECRET = "fleetdesk-session-signing-key-2026";
+const SESSION_SECRET = "comp3810sef-session-signing-key-2026";
 ```
 
 Change the session secret before deploying to a public server.
@@ -86,7 +86,7 @@ Change the session secret before deploying to a public server.
 The expected startup output is:
 
 ```text
-FleetDesk started successfully.
+started successfully.
 Local URL: http://localhost:8099
 ```
 ## Commands
@@ -103,7 +103,7 @@ Vehicle records are read from the externally managed `cars` collection. The appl
 
 1. Open `http://localhost:8099/login`.
 2. Enter `customer01` with password `123456`, or `customer02` with password `123456`.
-3. Press **Enter FleetDesk**.
+3. Press **Enter**.
 4. Press **Logout** in the top navigation to end the session.
 
 ### Web CRUD pages

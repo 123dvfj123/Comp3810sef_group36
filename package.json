@@ -1,8 +1,8 @@
 {
-  "name": "fleetdesk-rental-system",
+  "name": "comp3810sef-group36",
   "version": "1.0.0",
   "private": true,
-  "description": "FleetDesk customer car rental system",
+  "description": "Customer car rental system",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
